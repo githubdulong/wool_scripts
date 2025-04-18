@@ -182,13 +182,13 @@ if (url.includes("/v4/note/videofeed")) {
         });
       }
       // 存储无水印视频链接
-      if (item?.id !== "" && item?.video_info_v2?.media?.stream?.h265?.[0]?.master_url !== "") {
-        let myData = {
-          id: item.id,
-          url: item.video_info_v2.media.stream.h265[0].master_url
-        };
-        newDatas.push(myData);
-      }
+      if (item?.id && item.video_info_v2?.media?.stream?.h265?.length > 0 && item.video_info_v2.media.stream.h265[0].master_url) {
+  let myData = {
+    id: item.id,
+    url: item.video_info_v2.media.stream.h265[0].master_url
+  };
+  newDatas.push(myData);
+}
     }
     $.setdata(JSON.stringify(newDatas), "redBookVideoFeed"); // 普通视频 写入持久化存储
   }
@@ -197,13 +197,13 @@ if (url.includes("/v4/note/videofeed")) {
   if (videoFeedUnlock?.notSave === "fmz200") {
     if (obj?.data?.length > 0) {
       for (let item of obj.data) {
-        if (item?.id !== "" && item?.video_info_v2?.media?.stream?.h265?.[0]?.master_url !== "") {
-          let myData = {
-            id: item.id,
-            url: item.video_info_v2.media.stream.h265[0].master_url
-          };
-          unlockDatas.push(myData);
-        }
+        if (item?.id && item.video_info_v2?.media?.stream?.h265?.length > 0 && item.video_info_v2.media.stream.h265[0].master_url) {
+  let myData = {
+    id: item.id,
+    url: item.video_info_v2.media.stream.h265[0].master_url
+  };
+  newDatas.push(myData);
+}
       }
     }
     $.setdata(JSON.stringify(unlockDatas), "redBookVideoFeedUnlock"); // 禁止保存的视频 写入持久化存储
